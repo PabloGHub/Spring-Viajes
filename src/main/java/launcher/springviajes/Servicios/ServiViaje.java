@@ -19,7 +19,7 @@ import java.util.List;
 public class ServiViaje extends Empaquetador
 {
     private RepoViaje _repoViaje;
-    //private ServiPerfil _serviPerfil;
+    private ServiPerfil _serviPerfil;
     //private Empaquetador _emp;
 
     public List<DTOViaje> darmeTodo()
@@ -88,9 +88,9 @@ public class ServiViaje extends Empaquetador
     public DTOPerfil annadirParticipanteViaje(int idViaje, int idPerfil)
     {
         DTOViaje _viaje = this.darmeUno(idViaje);
-        DTOPerfil _perfil = get_serviPerfil().darmeUno(idPerfil);
+        DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
         _perfil.get_viajes().add(_viaje);
-        get_serviPerfil().guardar(_perfil);
+        _serviPerfil.guardar(_perfil);
         return _perfil;
     }
 }

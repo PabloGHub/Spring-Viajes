@@ -6,6 +6,8 @@ import launcher.springviajes.Servicios.ServiPerfil;
 import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
+import launcher.springviajes.repositorios.RepoPerfil;
+import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,13 +20,17 @@ import java.util.stream.Collectors;
 @Component
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 public class Empaquetador
 {
+    // Es esto o permitir bucle.
+    // private ServiViaje _serviViaje;
+    // private ServiPerfil _serviPerfil;
+
+    // repito: es esto o permitir bucles.
     @Autowired
-    private ServiViaje _serviViaje;
+    private RepoViaje _repoViaje;
     @Autowired
-    private ServiPerfil _serviPerfil;
+    private RepoPerfil _repoPerfil;
 
 
     // --- Empaquetadores --- //
@@ -56,7 +62,10 @@ public class Empaquetador
     public Viaje desempaquetar(DTOViaje _viaje)
     {
         Viaje _NovoViaje = (_viaje.get_idViaje() == null) ? new Viaje() :
-                _serviViaje.darmeUnoViaje(_viaje.get_idViaje());
+                _repoViaje.findById(_viaje.get_idViaje()).orElse(null);
+
+        if (_NovoViaje == null)
+            return null;
 
         // Este forma permite crear nuevo si el id es inexsistente.
         // Viaje _NovoViaje = new Viaje();
@@ -84,7 +93,10 @@ public class Empaquetador
     public Perfil desempaquetar(DTOPerfil _perfil)
     {
         Perfil _NovoPerfil = (_perfil.get_idPerfil() == null) ? new Perfil() :
-                _serviPerfil.darmeUnoPerfil(_perfil.get_idPerfil());
+                _repoPerfil.findById(_perfil.get_idPerfil()).orElse(null);
+
+        if (_NovoPerfil == null)
+            return null;
 
         _NovoPerfil.setIdUsuario
         (
