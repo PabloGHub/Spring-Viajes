@@ -97,17 +97,17 @@ public class Empaquetador
         _NovoViaje.setNombre
         (
             (_viaje.get_nombre() != null) ? _viaje.get_nombre() :
-                    (_NovoViaje.getNombre() != null) ? _NovoViaje.getNombre() : null
+                    (_NovoViaje.getNombre() != null) ? _NovoViaje.getNombre() : "Desconocido"
         );
         _NovoViaje.setDescripcion
         (
                 (_viaje.get_descripcion()) != null ? _viaje.get_descripcion() :
-                        (_NovoViaje.getDescripcion() != null) ? _NovoViaje.getDescripcion() : null
+                        (_NovoViaje.getDescripcion() != null) ? _NovoViaje.getDescripcion() : "Desconocido"
         );
         _NovoViaje.setPassword
         (
                 (_viaje.get_contraseña() != null) ? _viaje.get_contraseña() :
-                        (_NovoViaje.getPassword() != null) ? _NovoViaje.getPassword() : null
+                        (_NovoViaje.getPassword() != null) ? _NovoViaje.getPassword() : "Desconocido"
         );
 
         return _NovoViaje;
@@ -129,12 +129,12 @@ public class Empaquetador
         _NovoPerfil.setNombre
         (
             (_perfil.get_nombre() != null) ? _perfil.get_nombre() :
-                    (_NovoPerfil.getNombre() != null) ? _NovoPerfil.getNombre() : null
+                    (_NovoPerfil.getNombre() != null) ? _NovoPerfil.getNombre() : "Desconocido"
         );
         _NovoPerfil.setPassword
         (
             (_perfil.get_password() != null) ? _perfil.get_password() :
-                    (_NovoPerfil.getPassword() != null) ? _NovoPerfil.getPassword() : null
+                    (_NovoPerfil.getPassword() != null) ? _NovoPerfil.getPassword() : "Desconocido"
         );
         _NovoPerfil.setViajes
         (
