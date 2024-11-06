@@ -103,4 +103,16 @@ public class ServiViaje extends Empaquetador
                 .map(this::empaquetar)
                 .toList();
     }
+
+    public List<DTOPerfilPuro> eliminarParticipanteViaje(int idViaje, int idPerfil)
+    {
+        DTOViaje _viaje = this.darmeUno(idViaje);
+        DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
+        _perfil.get_viajes().remove(_viaje);
+        _serviPerfil.guardar(_perfil);
+
+        return _serviPerfil.darmeTodo().stream()
+                .map(this::empaquetar)
+                .toList();
+    }
 }
