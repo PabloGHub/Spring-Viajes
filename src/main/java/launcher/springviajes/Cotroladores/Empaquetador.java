@@ -3,6 +3,7 @@ package launcher.springviajes.Cotroladores;
 import launcher.springviajes.DTOs.DTOPerfil;
 import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViaje;
+import launcher.springviajes.DTOs.DTOViajeDatos;
 import launcher.springviajes.Servicios.ServiPerfil;
 import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Perfil;
@@ -35,7 +36,7 @@ public class Empaquetador
 
 
     // --- Empaquetadores --- //
-    public DTOViaje empaquetar(Viaje _viaje)
+    public DTOViaje empaquetar(Viaje _viaje) // Esto tendria que ser Puro.
     {
         DTOViaje _NovoViaje = new DTOViaje();
         _NovoViaje.set_idViaje(_viaje.getIdViaje());
@@ -44,6 +45,20 @@ public class Empaquetador
         _NovoViaje.set_contraseña(_viaje.getPassword());
         return _NovoViaje;
     }
+    // TODO: Refactorizar segun el "todo" de DTOViajeDatos.
+    public DTOViajeDatos empaquetarNoPuro(Viaje _viaje)
+    {
+        DTOViajeDatos _NovoViaje = new DTOViajeDatos();
+        _NovoViaje.set_idViaje(_viaje.getIdViaje());
+        _NovoViaje.set_nombre(_viaje.getNombre());
+        _NovoViaje.set_descripcion(_viaje.getDescripcion());
+        _NovoViaje.set_password(_viaje.getPassword());
+        _repoPerfil.findAll().stream()
+                .filter(perfil -> perfil.getViajes().contains(_viaje))
+                .forEach(p -> _NovoViaje.get_participantes().add(empaquetarPuro(p)));
+        return _NovoViaje;
+    }
+
 
 
     public DTOPerfil empaquetar(Perfil _perfil)

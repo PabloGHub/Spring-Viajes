@@ -1,6 +1,8 @@
 package launcher.springviajes.DTOs;
 
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,5 +18,5 @@ public class DTOViajeDatos
     private String _nombre;
     private String _descripcion;
     private String _password;
-    private List<DTOPerfil> _participantes;
+    private List<DTOPerfilPuro> _participantes = new ArrayList<>();
 }

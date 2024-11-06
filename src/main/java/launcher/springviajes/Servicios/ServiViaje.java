@@ -4,6 +4,7 @@ import launcher.springviajes.Cotroladores.Empaquetador;
 import launcher.springviajes.DTOs.DTOPerfil;
 import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViaje;
+import launcher.springviajes.DTOs.DTOViajeDatos;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
@@ -104,15 +105,13 @@ public class ServiViaje extends Empaquetador
                 .toList();
     }
 
-    public List<DTOPerfilPuro> eliminarParticipanteViaje(int idViaje, int idPerfil)
+    public DTOViajeDatos eliminarParticipanteViaje(int idViaje, int idPerfil)
     {
         DTOViaje _viaje = this.darmeUno(idViaje);
         DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
         _perfil.get_viajes().remove(_viaje);
         _serviPerfil.guardar(_perfil);
 
-        return _serviPerfil.darmeTodo().stream()
-                .map(this::empaquetar)
-                .toList();
+        return empaquetarNoPuro(desempaquetar(_viaje));
     }
 }

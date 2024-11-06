@@ -1,10 +1,7 @@
 package launcher.springviajes.Cotroladores;
 
 
-import launcher.springviajes.DTOs.DTOEliminarParticipante;
-import launcher.springviajes.DTOs.DTOPerfil;
-import launcher.springviajes.DTOs.DTOPerfilPuro;
-import launcher.springviajes.DTOs.DTOViaje;
+import launcher.springviajes.DTOs.*;
 import launcher.springviajes.Servicios.ServiViaje;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +40,8 @@ public class ControladorViaje
         return serviViaje.verParticipantesViaje(idViaje);
     }
 
-    public List<DTOPerfilPuro> eliminarParticipanteViaje(@RequestBody DTOEliminarParticipante _eliminarParticipante)
+    @PostMapping("/participantes/eliminar")
+    public DTOViajeDatos eliminarParticipanteViaje(@RequestBody DTOEliminarParticipante _eliminarParticipante)
     {
         return serviViaje.eliminarParticipanteViaje(_eliminarParticipante.get_idViaje(), _eliminarParticipante.get_idPerfil());
     }
