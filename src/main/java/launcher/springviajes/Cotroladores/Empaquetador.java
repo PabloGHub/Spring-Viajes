@@ -1,6 +1,7 @@
 package launcher.springviajes.Cotroladores;
 
 import launcher.springviajes.DTOs.DTOPerfil;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.Servicios.ServiPerfil;
 import launcher.springviajes.Servicios.ServiViaje;
@@ -44,6 +45,7 @@ public class Empaquetador
         return _NovoViaje;
     }
 
+
     public DTOPerfil empaquetar(Perfil _perfil)
     {
         DTOPerfil _NovoPerfil = new DTOPerfil();
@@ -56,6 +58,27 @@ public class Empaquetador
 
         return _NovoPerfil;
     }
+    public DTOPerfilPuro empaquetar(DTOPerfil _perfil)
+    {
+        DTOPerfilPuro _NovoPerfil = new DTOPerfilPuro();
+
+        _NovoPerfil.set_idPerfil(_perfil.get_idPerfil());
+        _NovoPerfil.set_nombre(_perfil.get_nombre());
+        _NovoPerfil.set_password(_perfil.get_password());
+
+        return _NovoPerfil;
+    }
+    public DTOPerfilPuro empaquetarPuro(Perfil _perfil)
+    {
+        DTOPerfilPuro _NovoPerfil = new DTOPerfilPuro();
+
+        _NovoPerfil.set_idPerfil(_perfil.getIdUsuario());
+        _NovoPerfil.set_nombre(_perfil.getNombre());
+        _NovoPerfil.set_password(_perfil.getPassword());
+
+        return _NovoPerfil;
+    }
+
 
 
     // --- Desempaquetadores --- //

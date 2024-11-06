@@ -98,13 +98,9 @@ public class ServiViaje extends Empaquetador
 
     public List<DTOPerfilPuro> verParticipantesViaje(int idViaje)
     {
-        List<DTOPerfilPuro> _perfiles = _serviPerfil.darmeTodo().stream().map(_perfil ->
-        {
-            if (_perfil.get_viajes().stream().anyMatch(viaje -> viaje.get_idViaje() == idViaje))
-                return _perfil;
-        });
-
-
-        return null;
+        return _serviPerfil.darmeTodo().stream()
+                .filter(p -> p.get_viajes().stream().anyMatch(v -> v.get_idViaje() == idViaje))
+                .map(this::empaquetar)
+                .toList();
     }
 }
