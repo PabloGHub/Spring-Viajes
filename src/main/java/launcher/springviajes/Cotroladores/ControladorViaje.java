@@ -2,6 +2,7 @@ package launcher.springviajes.Cotroladores;
 
 
 import launcher.springviajes.DTOs.DTOPerfil;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.Servicios.ServiViaje;
 import lombok.AllArgsConstructor;
@@ -34,4 +35,11 @@ public class ControladorViaje
     {
         return serviViaje.annadirParticipanteViaje(idViaje, idPerfil);
     }
+
+    @GetMapping("/participantes")
+    public List<DTOPerfilPuro> verParticipantesViaje(@RequestParam int idViaje)
+    {
+        return serviViaje.verParticipantesViaje(idViaje);
+    }
+
 }

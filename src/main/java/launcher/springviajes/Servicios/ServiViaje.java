@@ -2,6 +2,7 @@ package launcher.springviajes.Servicios;
 
 import launcher.springviajes.Cotroladores.Empaquetador;
 import launcher.springviajes.DTOs.DTOPerfil;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,5 +94,17 @@ public class ServiViaje extends Empaquetador
         _perfil.get_viajes().add(_viaje);
         _serviPerfil.guardar(_perfil);
         return _perfil;
+    }
+
+    public List<DTOPerfilPuro> verParticipantesViaje(int idViaje)
+    {
+        List<DTOPerfilPuro> _perfiles = _serviPerfil.darmeTodo().stream().map(_perfil ->
+        {
+            if (_perfil.get_viajes().stream().anyMatch(viaje -> viaje.get_idViaje() == idViaje))
+                return _perfil;
+        });
+
+
+        return null;
     }
 }
