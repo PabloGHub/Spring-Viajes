@@ -1,11 +1,9 @@
 package launcher.springviajes.Cotroladores;
 
-import launcher.springviajes.DTOs.DTOPerfil;
-import launcher.springviajes.DTOs.DTOPerfilPuro;
-import launcher.springviajes.DTOs.DTOViaje;
-import launcher.springviajes.DTOs.DTOViajeDatos;
+import launcher.springviajes.DTOs.*;
 import launcher.springviajes.Servicios.ServiPerfil;
 import launcher.springviajes.Servicios.ServiViaje;
+import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoPerfil;
@@ -93,6 +91,24 @@ public class Empaquetador
 
         return _NovoPerfil;
     }
+
+
+    public DTOActividad empaquetar(Actividad _actividad)
+    {
+        DTOActividad _NovoActividad = new DTOActividad();
+
+        _NovoActividad.set_idActividad(_actividad.getIdActividad());
+        _NovoActividad.set_titulo(_actividad.getTitulo());
+        _NovoActividad.set_descripcion(_actividad.getDescripcion());
+        _NovoActividad.set_fecha(_actividad.getFecha().format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE));
+        _NovoActividad.set_precio(_actividad.getPrecio());
+
+        _NovoActividad.set_Viaje(empaquetar(_actividad.getViaje()));
+
+        return _NovoActividad;
+    }
+
+
 
 
 

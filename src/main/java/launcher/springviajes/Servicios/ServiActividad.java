@@ -1,9 +1,11 @@
 package launcher.springviajes.Servicios;
 
 import kotlin.collections.ArrayDeque;
+import launcher.springviajes.Cotroladores.Empaquetador;
 import launcher.springviajes.DTOs.DTOActividad;
 import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
+import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoActividad;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +14,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class ServiActividad
+public class ServiActividad extends Empaquetador
 {
     private RepoActividad _repoActividad;
 
@@ -26,23 +28,23 @@ public class ServiActividad
             return null;
         else
         {
-            for (int i = 0; i < _actividades.size(); i++)
+            for (Actividad _actividad : _actividades)
             {
-                DTOActividad _actividad = new DTOActividad();
-                _actividad.set_idActividad(_actividades.get(i).getIdActividad());
-                _actividad.set_titulo(_actividades.get(i).getTitulo());
-                _actividad.set_descripcion(_actividades.get(i).getDescripcion());
-                _actividad.set_precio(_actividades.get(i).getPrecio());
-                _actividadesDTO.add(_actividad);
+                _actividadesDTO.add(empaquetar(_actividad));
             }
         }
 
         return _actividadesDTO;
     }
 
-    public Actividad darmeUno(int id)
+    public DTOActividad darmeUno(int id)
     {
-        return _repoActividad.findById(id).orElse(null);
+        Actividad _Act = _repoActividad.findById(id).orElse(null);
+
+        if (_Act == null)
+            return null;
+
+        return empaquetar(_Act);
     }
 
     public Boolean eliminar(int id)

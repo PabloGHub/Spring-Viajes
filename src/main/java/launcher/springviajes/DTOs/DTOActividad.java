@@ -13,5 +13,5 @@ public class DTOActividad
     private String _descripcion;
     private Float _precio;
     private String _fecha;
-    //private DTOViaje _Viaje;
+    private DTOViaje _Viaje;
 }

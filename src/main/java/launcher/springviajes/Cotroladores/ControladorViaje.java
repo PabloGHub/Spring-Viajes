@@ -45,4 +45,10 @@ public class ControladorViaje
     {
         return serviViaje.eliminarParticipanteViaje(_eliminarParticipante.get_idViaje(), _eliminarParticipante.get_idPerfil());
     }
+
+    @GetMapping("/actividad/{id}")
+    public List<DTOActividad> verActividades(@PathVariable int id)
+    {
+        return serviViaje.verActividades(id);
+    }
 }

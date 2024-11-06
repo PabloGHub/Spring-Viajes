@@ -1,16 +1,14 @@
 package launcher.springviajes.Servicios;
 
 import launcher.springviajes.Cotroladores.Empaquetador;
-import launcher.springviajes.DTOs.DTOPerfil;
-import launcher.springviajes.DTOs.DTOPerfilPuro;
-import launcher.springviajes.DTOs.DTOViaje;
-import launcher.springviajes.DTOs.DTOViajeDatos;
+import launcher.springviajes.DTOs.*;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -23,6 +21,7 @@ public class ServiViaje extends Empaquetador
 {
     private RepoViaje _repoViaje;
     private ServiPerfil _serviPerfil;
+    private ServiActividad _serviActividad;
     //private Empaquetador _emp;
 
     public List<DTOViaje> darmeTodo()
@@ -113,5 +112,13 @@ public class ServiViaje extends Empaquetador
         _serviPerfil.guardar(_perfil);
 
         return empaquetarNoPuro(desempaquetar(_viaje));
+    }
+
+
+    public List<DTOActividad> verActividades(int id)
+    {
+        return _serviActividad.darmeTodo().stream()
+                .filter(a -> a.get_Viaje().get_idViaje() == id)
+                .toList();
     }
 }
