@@ -51,4 +51,10 @@ public class ControladorViaje
     {
         return serviViaje.verActividades(id);
     }
+
+    @PostMapping("/actividad/nueva")
+    public DTOActividad proponerActividad(@RequestBody DTOActividad _actividad)
+    {
+        return serviViaje.proponerActividad(_actividad);
+    }
 }

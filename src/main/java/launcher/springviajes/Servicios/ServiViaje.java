@@ -121,4 +121,10 @@ public class ServiViaje extends Empaquetador
                 .filter(a -> a.get_Viaje().get_idViaje() == id)
                 .toList();
     }
+
+
+    public DTOActividad proponerActividad(DTOActividad _actividad)
+    {
+        return _serviActividad.guardar(_actividad);
+    }
 }

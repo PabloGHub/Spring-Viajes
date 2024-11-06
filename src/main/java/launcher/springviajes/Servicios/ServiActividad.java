@@ -3,6 +3,7 @@ package launcher.springviajes.Servicios;
 import kotlin.collections.ArrayDeque;
 import launcher.springviajes.Cotroladores.Empaquetador;
 import launcher.springviajes.DTOs.DTOActividad;
+import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
@@ -58,5 +59,15 @@ public class ServiActividad extends Empaquetador
         {
             return false;
         }
+    }
+
+
+
+    public DTOActividad guardar(DTOActividad _actividadesDTO)
+    {
+        Actividad _actividad = desempaquetar(_actividadesDTO);
+        _actividad = _repoActividad.save(_actividad);
+
+        return empaquetar(_actividad);
     }
 }

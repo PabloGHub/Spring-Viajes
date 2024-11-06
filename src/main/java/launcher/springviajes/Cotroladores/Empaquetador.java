@@ -6,6 +6,7 @@ import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
+import launcher.springviajes.repositorios.RepoActividad;
 import launcher.springviajes.repositorios.RepoPerfil;
 import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
@@ -31,6 +32,8 @@ public class Empaquetador
     private RepoViaje _repoViaje;
     @Autowired
     private RepoPerfil _repoPerfil;
+    @Autowired
+    private RepoActividad _repoActividad;
 
 
     // --- Empaquetadores --- //
@@ -93,6 +96,8 @@ public class Empaquetador
     }
 
 
+    // La fecha esta fatal, es 2024-11-06 cuando tendria que ser 06/11/2024.
+    // TODO: Revisar y arreglar.
     public DTOActividad empaquetar(Actividad _actividad)
     {
         DTOActividad _NovoActividad = new DTOActividad();
@@ -177,5 +182,43 @@ public class Empaquetador
         );
 
         return _NovoPerfil;
+    }
+
+    // Son las 9, tengo mucho sueño y no se si esto esta bien.
+    // TODO: Revisar.
+    public Actividad desempaquetar(DTOActividad _actividad)
+    {
+        Actividad _NovoActividad = (_actividad.get_idActividad() == null) ? new Actividad() :
+                _repoActividad.findById(_actividad.get_idActividad()).orElse(null);
+
+        if (_NovoActividad == null)
+            return null;
+
+        _NovoActividad.setIdActividad
+        (
+            (_actividad.get_idActividad() != null) ? _actividad.get_idActividad() : null
+        );
+        _NovoActividad.setTitulo
+        (
+            (_actividad.get_titulo() != null) ? _actividad.get_titulo() : "Desconocido"
+        );
+        _NovoActividad.setDescripcion
+        (
+            (_actividad.get_descripcion() != null) ? _actividad.get_descripcion() : "Desconocido"
+        );
+        _NovoActividad.setFecha
+        (
+            (_actividad.get_fecha() != null) ? java.time.LocalDate.parse(_actividad.get_fecha()) : null
+        );
+        _NovoActividad.setPrecio
+        (
+            (_actividad.get_precio() != null) ? _actividad.get_precio() : null
+        );
+        _NovoActividad.setViaje
+        (
+            (_actividad.get_Viaje() != null) ? desempaquetar(_actividad.get_Viaje()) : null
+        );
+
+        return _NovoActividad;
     }
 }
