@@ -1,8 +1,6 @@
 package launcher.springviajes.Cotroladores;
 
 import launcher.springviajes.DTOs.*;
-import launcher.springviajes.Servicios.ServiPerfil;
-import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
@@ -10,7 +8,6 @@ import launcher.springviajes.repositorios.RepoActividad;
 import launcher.springviajes.repositorios.RepoPerfil;
 import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,19 +34,19 @@ public class Empaquetador
 
 
     // --- Empaquetadores --- //
-    public DTOViaje empaquetar(Viaje _viaje) // Esto tendria que ser Puro.
+    public DTOViajePuro empaquetarPuro(Viaje _viaje)
     {
-        DTOViaje _NovoViaje = new DTOViaje();
+        DTOViajePuro _NovoViaje = new DTOViajePuro();
         _NovoViaje.set_idViaje(_viaje.getIdViaje());
         _NovoViaje.set_nombre(_viaje.getNombre());
         _NovoViaje.set_descripcion(_viaje.getDescripcion());
         _NovoViaje.set_contraseña(_viaje.getPassword());
         return _NovoViaje;
     }
-    // TODO: Refactorizar segun el "todo" de DTOViajeDatos.
-    public DTOViajeDatos empaquetarNoPuro(Viaje _viaje)
+    // TODO: Refactorizar segun el "todo" de DTOViaje.
+    public DTOViaje empaquetar(Viaje _viaje)
     {
-        DTOViajeDatos _NovoViaje = new DTOViajeDatos();
+        DTOViaje _NovoViaje = new DTOViaje();
         _NovoViaje.set_idViaje(_viaje.getIdViaje());
         _NovoViaje.set_nombre(_viaje.getNombre());
         _NovoViaje.set_descripcion(_viaje.getDescripcion());
@@ -57,6 +54,7 @@ public class Empaquetador
         _repoPerfil.findAll().stream()
                 .filter(perfil -> perfil.getViajes().contains(_viaje))
                 .forEach(p -> _NovoViaje.get_participantes().add(empaquetarPuro(p)));
+        
         return _NovoViaje;
     }
 
@@ -70,7 +68,7 @@ public class Empaquetador
         _NovoPerfil.set_nombre(_perfil.getNombre());
         _NovoPerfil.set_password(_perfil.getPassword());
 
-        _perfil.getViajes().forEach(viaje -> _NovoPerfil.get_viajes().add(empaquetar(viaje)));
+        _perfil.getViajes().forEach(viaje -> _NovoPerfil.get_viajes().add(empaquetarPuro(viaje)));
 
         return _NovoPerfil;
     }
@@ -108,7 +106,7 @@ public class Empaquetador
         _NovoActividad.set_fecha(_actividad.getFecha().format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE));
         _NovoActividad.set_precio(_actividad.getPrecio());
 
-        _NovoActividad.set_Viaje(empaquetar(_actividad.getViaje()));
+        _NovoActividad.set_Viaje(empaquetarPuro(_actividad.getViaje()));
 
         return _NovoActividad;
     }
@@ -118,7 +116,7 @@ public class Empaquetador
 
 
     // --- Desempaquetadores --- //
-    public Viaje desempaquetar(DTOViaje _viaje)
+    public Viaje desempaquetar(DTOViajePuro _viaje)
     {
         Viaje _NovoViaje = (_viaje.get_idViaje() == null) ? new Viaje() :
                 _repoViaje.findById(_viaje.get_idViaje()).orElse(null);

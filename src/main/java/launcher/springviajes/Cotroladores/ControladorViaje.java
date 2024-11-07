@@ -17,13 +17,13 @@ public class ControladorViaje
 
 
     @GetMapping
-    public List<DTOViaje> listarViajes()
+    public List<DTOViajePuro> listarViajes(@RequestParam int id)
     {
-        return serviViaje.darmeTodo();
+        return serviViaje.listarViaje(id);
     }
 
     @PostMapping("/crear")
-    public DTOViaje crearViaje(@RequestBody DTOViaje _viaje)
+    public DTOViajePuro crearViaje(@RequestBody DTOViajePuro _viaje)
     {
         return serviViaje.guardar(_viaje);
     }
@@ -41,7 +41,7 @@ public class ControladorViaje
     }
 
     @PostMapping("/participantes/eliminar")
-    public DTOViajeDatos eliminarParticipanteViaje(@RequestBody DTOEliminarParticipante _eliminarParticipante)
+    public DTOViaje eliminarParticipanteViaje(@RequestBody DTOEliminarParticipante _eliminarParticipante)
     {
         return serviViaje.eliminarParticipanteViaje(_eliminarParticipante.get_idViaje(), _eliminarParticipante.get_idPerfil());
     }
