@@ -15,11 +15,12 @@ public class ControladorViaje
 {
     private final ServiViaje serviViaje;
 
+    // TODO: quitar la palabra id de todos.
 
     @GetMapping
-    public List<DTOViajePuro> listarViajes(@RequestParam int id)
+    public List<DTOViajePuro> listarViajes(@RequestParam int usuario)
     {
-        return serviViaje.listarViaje(id);
+        return serviViaje.listarViaje(usuario);
     }
 
     @PostMapping("/crear")

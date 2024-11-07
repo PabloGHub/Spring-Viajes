@@ -1,0 +1,3 @@
+DTOAlgo: es un DTO con conecxiones.
+DTOAlgoPuro: es un DTO con sus datos, sin conexiones.
+Las DTOsNomales dar las conexiones de los DTOsPuras. // si no puede probocar bucles.
