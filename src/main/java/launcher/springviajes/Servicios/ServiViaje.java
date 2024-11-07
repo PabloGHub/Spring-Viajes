@@ -124,8 +124,8 @@ public class ServiViaje extends Empaquetador
     }
 
 
-    public List<DTOViajePuro> listarViaje(int id)
+    public List<DTOViajePuro> listarViaje(int idUsuario)
     {
-        return null;
+        return _serviPerfil.darmeUno(idUsuario).get_viajes();
     }
 }
