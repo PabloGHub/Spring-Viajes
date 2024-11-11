@@ -1,4 +1,4 @@
-package launcher.springviajes.Cotroladores;
+package launcher.springviajes.Servicios;
 
 import launcher.springviajes.DTOs.*;
 import launcher.springviajes.modelos.Actividad;
@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 
@@ -93,6 +94,18 @@ public class Empaquetador
         return _NovoPerfil;
     }
 
+    public DTOFecha empaquetar(LocalDate _fecha)
+    {
+        DTOFecha _NovoFecha = new DTOFecha();
+
+        _NovoFecha.set_dia(_fecha.getDayOfMonth());
+        _NovoFecha.set_mes(_fecha.getMonthValue());
+        _NovoFecha.set_anno(_fecha.getYear());
+
+        return _NovoFecha;
+    }
+
+
 
     // La fecha esta fatal, es 2024-11-06 cuando tendria que ser 06/11/2024.
     // TODO: Revisar y arreglar.
@@ -103,7 +116,7 @@ public class Empaquetador
         _NovoActividad.set_idActividad(_actividad.getIdActividad());
         _NovoActividad.set_titulo(_actividad.getTitulo());
         _NovoActividad.set_descripcion(_actividad.getDescripcion());
-        _NovoActividad.set_fecha(_actividad.getFecha().format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE));
+        _NovoActividad.set_fecha(empaquetar(_actividad.getFecha()));
         _NovoActividad.set_precio(_actividad.getPrecio());
 
         _NovoActividad.set_Viaje(empaquetarPuro(_actividad.getViaje()));
@@ -155,11 +168,11 @@ public class Empaquetador
         if (_NovoPerfil == null)
             return null;
 
-        _NovoPerfil.setIdUsuario
-        (
-            (_perfil.get_idPerfil() != null) ? _perfil.get_idPerfil() :
-                    (_NovoPerfil.getIdUsuario() != null) ? _NovoPerfil.getIdUsuario() : null
-        );
+        // _NovoPerfil.setIdUsuario
+        // (
+        //     (_perfil.get_idPerfil() != null) ? _perfil.get_idPerfil() :
+        //             (_NovoPerfil.getIdUsuario() != null) ? _NovoPerfil.getIdUsuario() : null
+        // );
         _NovoPerfil.setNombre
         (
             (_perfil.get_nombre() != null) ? _perfil.get_nombre() :
@@ -182,8 +195,17 @@ public class Empaquetador
         return _NovoPerfil;
     }
 
+
+    public LocalDate desempaquetar(DTOFecha _fecha)
+    {
+        return LocalDate.of(_fecha.get_anno(), _fecha.get_mes(), _fecha.get_dia());
+    }
+
+
+
+
+
     // Son las 9, tengo mucho sueño y no se si esto esta bien.
-    // TODO: Revisar.
     public Actividad desempaquetar(DTOActividad _actividad)
     {
         Actividad _NovoActividad = (_actividad.get_idActividad() == null) ? new Actividad() :
@@ -192,29 +214,30 @@ public class Empaquetador
         if (_NovoActividad == null)
             return null;
 
-        _NovoActividad.setIdActividad
-        (
-            (_actividad.get_idActividad() != null) ? _actividad.get_idActividad() : null
-        );
         _NovoActividad.setTitulo
         (
-            (_actividad.get_titulo() != null) ? _actividad.get_titulo() : "Desconocido"
+            (_actividad.get_titulo() != null) ? _actividad.get_titulo() :
+                    (_NovoActividad.getTitulo() != null) ? _NovoActividad.getTitulo() : "Desconocido"
         );
         _NovoActividad.setDescripcion
         (
-            (_actividad.get_descripcion() != null) ? _actividad.get_descripcion() : "Desconocido"
+            (_actividad.get_descripcion() != null) ? _actividad.get_descripcion() :
+                    (_NovoActividad.getDescripcion() != null) ? _NovoActividad.getDescripcion() : "Desconocido"
         );
         _NovoActividad.setFecha
         (
-            (_actividad.get_fecha() != null) ? java.time.LocalDate.parse(_actividad.get_fecha()) : null
+            (_actividad.get_fecha() != null) ? desempaquetar(_actividad.get_fecha()) :
+                    (_NovoActividad.getFecha() != null) ? _NovoActividad.getFecha() : java.time.LocalDate.now()
         );
         _NovoActividad.setPrecio
         (
-            (_actividad.get_precio() != null) ? _actividad.get_precio() : null
+            (_actividad.get_precio() != null) ? _actividad.get_precio() :
+                    (_NovoActividad.getPrecio() != null) ? _NovoActividad.getPrecio() : 0.00f
         );
         _NovoActividad.setViaje
         (
-            (_actividad.get_Viaje() != null) ? desempaquetar(_actividad.get_Viaje()) : null
+            (_actividad.get_Viaje() != null) ? desempaquetar(_actividad.get_Viaje()) :
+                    (_NovoActividad.getViaje() != null) ? _NovoActividad.getViaje() : null
         );
 
         return _NovoActividad;

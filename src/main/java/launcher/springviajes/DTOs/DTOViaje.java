@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// TODO: Convertir DTOViajePuro en DTOViajePuro y esta en normal
-//  asi como lo necesario para que vuelva ah funcioanar.
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

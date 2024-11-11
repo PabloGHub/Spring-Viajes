@@ -1,6 +1,5 @@
 package launcher.springviajes.Servicios;
 
-import launcher.springviajes.Cotroladores.Empaquetador;
 import launcher.springviajes.DTOs.*;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
@@ -120,6 +119,10 @@ public class ServiViaje extends Empaquetador
 
     public DTOActividad proponerActividad(DTOActividad _actividad)
     {
+        DTOViajePuro _viaje = this.darmeUno(_actividad.get_Viaje().get_idViaje());
+        if (_viaje == null) return null;
+
+        _actividad.set_Viaje(_viaje);
         return _serviActividad.guardar(_actividad);
     }
 
