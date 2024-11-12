@@ -4,6 +4,7 @@ import launcher.springviajes.DTOs.*;
 import launcher.springviajes.modelos.Actividad;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
+import launcher.springviajes.modelos.Voto;
 import launcher.springviajes.repositorios.RepoActividad;
 import launcher.springviajes.repositorios.RepoPerfil;
 import launcher.springviajes.repositorios.RepoViaje;
@@ -34,20 +35,22 @@ public class Empaquetador
     private RepoActividad _repoActividad;
 
 
-    // --- Empaquetadores --- //
+    // ---------------------------------------------------- Empaquetadores --- //
     public DTOViajePuro empaquetarPuro(Viaje _viaje)
     {
         DTOViajePuro _NovoViaje = new DTOViajePuro();
+
         _NovoViaje.set_idViaje(_viaje.getIdViaje());
         _NovoViaje.set_nombre(_viaje.getNombre());
         _NovoViaje.set_descripcion(_viaje.getDescripcion());
         _NovoViaje.set_contraseña(_viaje.getPassword());
+
         return _NovoViaje;
     }
-    // TODO: Refactorizar segun el "todo" de DTOViaje.
     public DTOViaje empaquetar(Viaje _viaje)
     {
         DTOViaje _NovoViaje = new DTOViaje();
+
         _NovoViaje.set_idViaje(_viaje.getIdViaje());
         _NovoViaje.set_nombre(_viaje.getNombre());
         _NovoViaje.set_descripcion(_viaje.getDescripcion());
@@ -61,6 +64,7 @@ public class Empaquetador
 
 
 
+    // ------ Perfil ------ //
     public DTOPerfil empaquetar(Perfil _perfil)
     {
         DTOPerfil _NovoPerfil = new DTOPerfil();
@@ -94,6 +98,10 @@ public class Empaquetador
         return _NovoPerfil;
     }
 
+
+
+
+    // ------ Fecha ------ //
     public DTOFecha empaquetar(LocalDate _fecha)
     {
         DTOFecha _NovoFecha = new DTOFecha();
@@ -107,8 +115,8 @@ public class Empaquetador
 
 
 
-    // La fecha esta fatal, es 2024-11-06 cuando tendria que ser 06/11/2024.
-    // TODO: Revisar y arreglar.
+
+    // ------ Actividad ------ //
     public DTOActividad empaquetar(Actividad _actividad)
     {
         DTOActividad _NovoActividad = new DTOActividad();
@@ -123,12 +131,72 @@ public class Empaquetador
 
         return _NovoActividad;
     }
+    public DTOActividadPuro empaquetar(DTOActividad _actividad)
+    {
+        DTOActividadPuro _NovoActividad = new DTOActividadPuro();
+
+        _NovoActividad.set_idActividad(_actividad.get_idActividad());
+        _NovoActividad.set_titulo(_actividad.get_titulo());
+        _NovoActividad.set_descripcion(_actividad.get_descripcion());
+        _NovoActividad.set_fecha(_actividad.get_fecha());
+        _NovoActividad.set_precio(_actividad.get_precio());
+
+        return _NovoActividad;
+    }
+    public DTOActividadPuro empaquetarPuro(Actividad _actividad)
+    {
+        DTOActividadPuro _NovoActividad = new DTOActividadPuro();
+
+        _NovoActividad.set_idActividad(_actividad.getIdActividad());
+        _NovoActividad.set_titulo(_actividad.getTitulo());
+        _NovoActividad.set_descripcion(_actividad.getDescripcion());
+        _NovoActividad.set_fecha(empaquetar(_actividad.getFecha()));
+        _NovoActividad.set_precio(_actividad.getPrecio());
+
+        return _NovoActividad;
+    }
+
+
+
+
+    // ------ Voto ------ //
+    public DTOVoto empaquetar(Voto _voto)
+    {
+        DTOVoto _novoVoto = new DTOVoto();
+
+        _novoVoto.set_idVoto(_voto.getIdVoto());
+        _novoVoto.set_perfil(empaquetarPuro(_voto.getPerfil()));
+        _novoVoto.set_viaje(empaquetarPuro(_voto.getActividad()));
+        _novoVoto.set_voto(_voto.getVoto());
+
+        return _novoVoto;
+    }
+    public DTOVotoPuro empaquetar(DTOVoto _voto)
+    {
+        DTOVotoPuro _novoVoto = new DTOVotoPuro();
+
+        _novoVoto.set_idVoto(_voto.get_idVoto());
+        _novoVoto.set_voto(_voto.get_voto());
+
+        return _novoVoto;
+    }
+    public DTOVotoPuro empaquetarPuro(Voto _voto)
+    {
+        DTOVotoPuro _novoVoto = new DTOVotoPuro();
+
+        _novoVoto.set_idVoto(_voto.getIdVoto());
+        _novoVoto.set_voto(_voto.getVoto());
+
+        return _novoVoto;
+    }
 
 
 
 
 
-    // --- Desempaquetadores --- //
+
+
+    // ---------------------------------------------------- Desempaquetadores --- //
     public Viaje desempaquetar(DTOViajePuro _viaje)
     {
         Viaje _NovoViaje = (_viaje.get_idViaje() == null) ? new Viaje() :
