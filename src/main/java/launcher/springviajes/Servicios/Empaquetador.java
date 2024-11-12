@@ -355,11 +355,14 @@ public class Empaquetador
                     _repoActividad.findById(_voto.get_actividad().get_idActividad()).orElse(null) : null
                         : (_novoVoto.getActividad() != null) ? _novoVoto.getActividad() : null
         );
-        if (_novoVoto.getPerfil() == null) return null;
+        if (_novoVoto.getActividad() == null) return null;
         _novoVoto.setVoto
-        (0);
-        //(_voto.get_voto() != null) ? _voto.get_voto() :
-                //                    (_novoVoto.getVoto() != null) ? _novoVoto.getVoto() : 0
+        (
+            (_voto.get_voto() != null) ? _voto.get_voto() :
+                                (_novoVoto.getVoto() != null) ? _novoVoto.getVoto() : null
+        );
+        if (_novoVoto.getVoto() == null) return null;
+
 
         return _novoVoto;
     }

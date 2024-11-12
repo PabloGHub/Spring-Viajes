@@ -8,8 +8,8 @@ import lombok.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/actividad")
 @AllArgsConstructor
+@RequestMapping("/actividad")
 public class ControladorActividad
 {
     private final ServiActividad serviActividad;

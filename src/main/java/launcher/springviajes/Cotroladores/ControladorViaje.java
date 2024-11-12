@@ -64,10 +64,8 @@ public class ControladorViaje
 
 
     @PostMapping("/actividad/votar")
-    public DTOVoto votarActividad(@RequestParam int _actividad, @RequestParam int _usuario, @RequestParam int _voto)
+    public DTOVotoPuro votarActividad(@RequestParam int _act, @RequestParam int _usu, @RequestParam int _voto)
     {
-        return null;
-        // TODO: Implementar
-        //return serviViaje.votarActividad(_actividad, _usuario, _voto);
+        return serviViaje.votarActividad(_act, _usu, _voto);
     }
 }

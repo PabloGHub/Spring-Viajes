@@ -1,7 +1,10 @@
 package launcher.springviajes.Servicios;
 
 import launcher.springviajes.DTOs.*;
+import launcher.springviajes.modelos.Actividad;
+import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.modelos.Viaje;
+import launcher.springviajes.modelos.Voto;
 import launcher.springviajes.repositorios.RepoViaje;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ public class ServiViaje extends Empaquetador
     private RepoViaje _repoViaje;
     private ServiPerfil _serviPerfil;
     private ServiActividad _serviActividad;
+    private ServiVoto _serviVoto;
     //private Empaquetador _emp;
 
     public List<DTOViajePuro> darmeTodo()
@@ -136,13 +140,22 @@ public class ServiViaje extends Empaquetador
 
     public DTOVotoPuro votarActividad(int _act, int _usu, int _voto)
     {
-        DTOActividad _actividad = _serviActividad.darmeUno(_act);
-        DTOPerfil _perfil = _serviPerfil.darmeUno(_usu);
+        Actividad _actividad = desempaquetar(_serviActividad.darmeUno(_act));
+        Perfil _perfil = desempaquetar(_serviPerfil.darmeUno(_usu));
 
         if (_actividad == null || _perfil == null)
             return null;
 
-        //_serviActividad
-        return null; // TODO: Implementar
+
+        DTOVoto _nuevoVoto = _serviVoto.darmeUno(_perfil, _actividad);
+        if (_nuevoVoto == null)
+        {
+            _nuevoVoto = new DTOVoto();
+            _nuevoVoto.set_actividad(empaquetarPuro(_actividad));
+            _nuevoVoto.set_perfil(empaquetarPuro(_perfil));
+        }
+
+        _nuevoVoto.set_voto(_voto);
+        return empaquetar(_serviVoto.guardar(_nuevoVoto));
     }
 }

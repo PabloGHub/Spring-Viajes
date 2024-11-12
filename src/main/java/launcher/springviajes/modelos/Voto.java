@@ -19,6 +19,7 @@ public class Voto
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idvoto")
     private Integer idVoto;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
@@ -30,5 +31,5 @@ public class Voto
     private Actividad actividad;
 
     @Column(name = "voto")
-    private int voto; // 0 no voto; 1 me gusta; 2 no me gusta
+    private Integer voto; // 0 no voto; 1 me gusta; 2 no me gusta
 }
