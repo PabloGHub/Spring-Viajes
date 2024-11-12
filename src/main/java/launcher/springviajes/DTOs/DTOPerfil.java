@@ -12,4 +12,5 @@ public class DTOPerfil
     private String _nombre;
     private String _password;
     private List<DTOViajePuro> _viajes = new ArrayList<>();
+
 }

@@ -33,6 +33,6 @@ public class Actividad
     private LocalDate fecha;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "idviaje", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "idviaje", nullable = false)
     private Viaje viaje;
 }

@@ -8,6 +8,7 @@ import launcher.springviajes.modelos.Voto;
 import launcher.springviajes.repositorios.RepoActividad;
 import launcher.springviajes.repositorios.RepoPerfil;
 import launcher.springviajes.repositorios.RepoViaje;
+import launcher.springviajes.repositorios.RepoVoto;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +34,12 @@ public class Empaquetador
     private RepoPerfil _repoPerfil;
     @Autowired
     private RepoActividad _repoActividad;
+    @Autowired
+    private RepoVoto _repoVoto;
 
 
     // ---------------------------------------------------- Empaquetadores --- //
-    public DTOViajePuro empaquetarPuro(Viaje _viaje)
-    {
-        DTOViajePuro _NovoViaje = new DTOViajePuro();
-
-        _NovoViaje.set_idViaje(_viaje.getIdViaje());
-        _NovoViaje.set_nombre(_viaje.getNombre());
-        _NovoViaje.set_descripcion(_viaje.getDescripcion());
-        _NovoViaje.set_contraseña(_viaje.getPassword());
-
-        return _NovoViaje;
-    }
+    // ------ Viaje ------ //
     public DTOViaje empaquetar(Viaje _viaje)
     {
         DTOViaje _NovoViaje = new DTOViaje();
@@ -59,6 +52,28 @@ public class Empaquetador
                 .filter(perfil -> perfil.getViajes().contains(_viaje))
                 .forEach(p -> _NovoViaje.get_participantes().add(empaquetarPuro(p)));
         
+        return _NovoViaje;
+    }
+    public DTOViajePuro empaquetar(DTOViaje _viaje)
+    {
+        DTOViajePuro _NovoViaje = new DTOViajePuro();
+
+        _NovoViaje.set_idViaje(_viaje.get_idViaje());
+        _NovoViaje.set_nombre(_viaje.get_nombre());
+        _NovoViaje.set_descripcion(_viaje.get_descripcion());
+        _NovoViaje.set_contraseña(_viaje.get_password());
+
+        return _NovoViaje;
+    }
+    public DTOViajePuro empaquetarPuro(Viaje _viaje)
+    {
+        DTOViajePuro _NovoViaje = new DTOViajePuro();
+
+        _NovoViaje.set_idViaje(_viaje.getIdViaje());
+        _NovoViaje.set_nombre(_viaje.getNombre());
+        _NovoViaje.set_descripcion(_viaje.getDescripcion());
+        _NovoViaje.set_contraseña(_viaje.getPassword());
+
         return _NovoViaje;
     }
 
@@ -166,7 +181,7 @@ public class Empaquetador
 
         _novoVoto.set_idVoto(_voto.getIdVoto());
         _novoVoto.set_perfil(empaquetarPuro(_voto.getPerfil()));
-        _novoVoto.set_viaje(empaquetarPuro(_voto.getActividad()));
+        //_novoVoto.set_viaje(empaquetarPuro(_voto.getActividad()));
         _novoVoto.set_voto(_voto.getVoto());
 
         return _novoVoto;
@@ -309,5 +324,43 @@ public class Empaquetador
         );
 
         return _NovoActividad;
+    }
+
+
+
+    public Voto desempaquetar(DTOVoto _voto)
+    {
+        Voto _novoVoto = (_voto.get_idVoto() == null) ? new Voto() :
+                (
+                        _repoPerfil.findById(_voto.get_idVoto()).orElse(null) == null ||
+                        _repoActividad.findById(_voto.get_idVoto()).orElse(null) == null
+                ) ? null :
+                        _repoVoto.findById(_voto.get_idVoto()).orElse(null);
+
+        if (_novoVoto == null)
+            return null;
+
+        _novoVoto.setPerfil
+        (
+            (_voto.get_perfil() != null) ?
+                (_repoPerfil.findById(_voto.get_perfil().get_idPerfil()).orElse(null) != null) ?
+                    _repoPerfil.findById(_voto.get_perfil().get_idPerfil()).orElse(null) : null
+                        : (_novoVoto.getPerfil() != null) ? _novoVoto.getPerfil() : null
+        );
+        if (_novoVoto.getPerfil() == null) return null;
+        _novoVoto.setActividad
+        (
+            (_voto.get_actividad() != null) ?
+                (_repoActividad.findById(_voto.get_actividad().get_idActividad()).orElse(null) != null) ?
+                    _repoActividad.findById(_voto.get_actividad().get_idActividad()).orElse(null) : null
+                        : (_novoVoto.getActividad() != null) ? _novoVoto.getActividad() : null
+        );
+        if (_novoVoto.getPerfil() == null) return null;
+        _novoVoto.setVoto
+        (0);
+        //(_voto.get_voto() != null) ? _voto.get_voto() :
+                //                    (_novoVoto.getVoto() != null) ? _novoVoto.getVoto() : 0
+
+        return _novoVoto;
     }
 }

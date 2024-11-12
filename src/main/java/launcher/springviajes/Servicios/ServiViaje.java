@@ -131,4 +131,18 @@ public class ServiViaje extends Empaquetador
     {
         return _serviPerfil.darmeUno(idUsuario).get_viajes();
     }
+
+
+
+    public DTOVotoPuro votarActividad(int _act, int _usu, int _voto)
+    {
+        DTOActividad _actividad = _serviActividad.darmeUno(_act);
+        DTOPerfil _perfil = _serviPerfil.darmeUno(_usu);
+
+        if (_actividad == null || _perfil == null)
+            return null;
+
+        //_serviActividad
+        return null; // TODO: Implementar
+    }
 }

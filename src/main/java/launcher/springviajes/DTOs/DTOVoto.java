@@ -9,6 +9,6 @@ public class DTOVoto
 {
     private Integer _idVoto;
     private DTOPerfilPuro _perfil;
-    private DTOActividadPuro _viaje;
+    private DTOActividadPuro _actividad;
     private Integer _voto;
 }

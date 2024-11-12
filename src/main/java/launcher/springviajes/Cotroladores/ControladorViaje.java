@@ -47,15 +47,27 @@ public class ControladorViaje
         return serviViaje.eliminarParticipanteViaje(_eliminarParticipante.get_idViaje(), _eliminarParticipante.get_idPerfil());
     }
 
+    // TODO: cambiar a RequestParam
     @GetMapping("/actividad/{id}")
     public List<DTOActividad> verActividades(@PathVariable int id)
     {
         return serviViaje.verActividades(id);
     }
 
+
     @PostMapping("/actividad/nueva")
     public DTOActividad proponerActividad(@RequestBody DTOActividad _actividad)
     {
         return serviViaje.proponerActividad(_actividad);
+    }
+
+
+
+    @PostMapping("/actividad/votar")
+    public DTOVoto votarActividad(@RequestParam int _actividad, @RequestParam int _usuario, @RequestParam int _voto)
+    {
+        return null;
+        // TODO: Implementar
+        //return serviViaje.votarActividad(_actividad, _usuario, _voto);
     }
 }
