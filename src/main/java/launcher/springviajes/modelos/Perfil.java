@@ -35,4 +35,13 @@ public class Perfil
         inverseJoinColumns = @JoinColumn(name = "idviaje")
     )
     private Set<Viaje> viajes;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable
+    (
+        name = "amigo",
+        joinColumns = @JoinColumn(name = "idusuario"),
+        inverseJoinColumns = @JoinColumn(name = "idamigo")
+    )
+    private Set<Perfil> amigos;
 }

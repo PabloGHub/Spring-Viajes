@@ -89,6 +89,7 @@ public class Empaquetador
         _NovoPerfil.set_password(_perfil.getPassword());
 
         _perfil.getViajes().forEach(viaje -> _NovoPerfil.get_viajes().add(empaquetarPuro(viaje)));
+        _perfil.getAmigos().forEach(amigo -> _NovoPerfil.get_amigos().add(empaquetarPuro(amigo)));
 
         return _NovoPerfil;
     }
@@ -273,6 +274,14 @@ public class Empaquetador
                     .map(this::desempaquetar)
                     .collect(Collectors.toSet()) :
                     (_NovoPerfil.getViajes() != null) ? _NovoPerfil.getViajes() : null
+        );
+        _NovoPerfil.setAmigos
+        (
+            (_perfil.get_amigos() != null) ? _perfil.get_amigos()
+                    .stream()
+                    .map(amigo -> _repoPerfil.findById(amigo.get_idPerfil()).orElse(null))
+                    .collect(Collectors.toSet()) :
+                    (_NovoPerfil.getAmigos() != null) ? _NovoPerfil.getAmigos() : null
         );
 
         return _NovoPerfil;
