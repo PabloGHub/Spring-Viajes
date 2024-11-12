@@ -1,6 +1,7 @@
 package launcher.springviajes.Servicios;
 
 import launcher.springviajes.DTOs.DTOPerfil;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.modelos.Perfil;
 import launcher.springviajes.repositorios.RepoPerfil;
 import lombok.AllArgsConstructor;
@@ -66,4 +67,20 @@ public class ServiPerfil extends Empaquetador
 
         return empaquetar(_NovoPerfil);
     }
+
+    public List<DTOPerfilPuro> listarAmigos(int id)
+    {
+        List<DTOPerfilPuro> _amigos = darmeUno(id).get_amigos();
+
+        darmeTodo().forEach(p ->
+        {
+            p.get_amigos()
+                    .stream()
+                    .filter(a -> a.get_idPerfil() == id)
+                    .forEach(_amigos::add);
+        });
+
+        return _amigos;
+    }
+
 }
