@@ -18,9 +18,9 @@ public class ControladorViaje
     // TODO: quitar la palabra id de todos.
 
     @GetMapping
-    public List<DTOViajePuro> listarViajes(@RequestParam int usuario)
+    public List<DTOViajePuro> listarViajes(@RequestParam int _usu)
     {
-        return serviViaje.listarViaje(usuario);
+        return serviViaje.listarViaje(_usu);
     }
 
     @PostMapping("/crear")
@@ -30,15 +30,15 @@ public class ControladorViaje
     }
 
     @PostMapping("/participantes/nuevo")
-    public DTOPerfil annadirParticipanteViaje(@RequestParam int idViaje, @RequestParam int idPerfil)
+    public DTOPerfil annadirParticipanteViaje(@RequestParam int _viaje, @RequestParam int _perfil)
     {
-        return serviViaje.annadirParticipanteViaje(idViaje, idPerfil);
+        return serviViaje.annadirParticipanteViaje(_viaje, _perfil);
     }
 
     @GetMapping("/participantes")
-    public List<DTOPerfilPuro> verParticipantesViaje(@RequestParam int idViaje)
+    public List<DTOPerfilPuro> verParticipantesViaje(@RequestParam int _viaje)
     {
-        return serviViaje.verParticipantesViaje(idViaje);
+        return serviViaje.verParticipantesViaje(_viaje);
     }
 
     @PostMapping("/participantes/eliminar")
@@ -47,18 +47,18 @@ public class ControladorViaje
         return serviViaje.eliminarParticipanteViaje(_eliminarParticipante.get_idViaje(), _eliminarParticipante.get_idPerfil());
     }
 
-    // TODO: cambiar a RequestParam
-    @GetMapping("/actividad/{id}")
-    public List<DTOActividad> verActividades(@PathVariable int id)
+
+    @GetMapping("/actividad")
+    public List<DTOActividad> verActividades(@RequestParam int _usu)
     {
-        return serviViaje.verActividades(id);
+        return serviViaje.verActividades(_usu);
     }
 
 
     @PostMapping("/actividad/nueva")
-    public DTOActividad proponerActividad(@RequestBody DTOActividad _actividad)
+    public DTOActividad proponerActividad(@RequestBody DTOActividad _act)
     {
-        return serviViaje.proponerActividad(_actividad);
+        return serviViaje.proponerActividad(_act);
     }
 
 
