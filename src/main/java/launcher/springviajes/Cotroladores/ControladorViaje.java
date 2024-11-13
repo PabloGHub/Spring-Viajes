@@ -23,11 +23,18 @@ public class ControladorViaje
         return serviViaje.listarViaje(_usu);
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/nuevo")
     public DTOViajePuro crearViaje(@RequestBody DTOViajePuro _viaje)
     {
         return serviViaje.guardar(_viaje);
     }
+
+    @GetMapping("/darmeUno")
+    public DTOViajePuro darmeUno(@RequestParam int _viaje)
+    {
+        return serviViaje.darmeUno(_viaje);
+    }
+
 
     @PostMapping("/participantes/nuevo")
     public DTOPerfil annadirParticipanteViaje(@RequestParam int _viaje, @RequestParam int _perfil)
