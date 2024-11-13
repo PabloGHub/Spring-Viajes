@@ -56,9 +56,9 @@ public class ControladorViaje
 
 
     @GetMapping("/actividad")
-    public List<DTOActividad> verActividades(@RequestParam int _usu)
+    public List<DTOActividad> verActividades(@RequestParam int _viaje)
     {
-        return serviViaje.verActividades(_usu);
+        return serviViaje.verActividades(_viaje);
     }
 
 

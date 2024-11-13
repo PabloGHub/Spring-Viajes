@@ -119,10 +119,10 @@ public class ServiViaje extends Empaquetador
     }
 
 
-    public List<DTOActividad> verActividades(int id)
+    public List<DTOActividad> verActividades(int _viaje)
     {
         return _serviActividad.darmeTodo().stream()
-                .filter(a -> a.get_Viaje().get_idViaje() == id)
+                .filter(a -> a.get_Viaje().get_idViaje() == _viaje)
                 .toList();
     }
 
