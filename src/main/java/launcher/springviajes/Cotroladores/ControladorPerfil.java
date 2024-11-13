@@ -28,7 +28,7 @@ public class ControladorPerfil
     }
 
     @GetMapping("/encuentra")
-    public DTOPerfil encuentraUno(@RequestBody DTOPerfilPuro _perfil)
+    public DTOPerfilPuro encuentraUno(@RequestBody DTOPerfilPuro _perfil)
     {
         return serviPerfil.encuentraUno(_perfil);
     }
