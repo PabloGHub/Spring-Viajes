@@ -1,6 +1,7 @@
 package launcher.springviajes.Cotroladores;
 
 import launcher.springviajes.DTOs.DTOPerfil;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.Servicios.ServiPerfil;
 import org.springframework.web.bind.annotation.*;
 import lombok.AllArgsConstructor;
@@ -18,5 +19,17 @@ public class ControladorPerfil
     public List<DTOPerfil> listarPerfiles()
     {
         return serviPerfil.darmeTodo();
+    }
+
+    @GetMapping("/darmeUno")
+    public DTOPerfil darmeUno(@RequestParam int id)
+    {
+        return serviPerfil.darmeUno(id);
+    }
+
+    @GetMapping("/encuentra")
+    public DTOPerfil encuentraUno(@RequestBody DTOPerfilPuro _perfil)
+    {
+        return serviPerfil.encuentraUno(_perfil);
     }
 }

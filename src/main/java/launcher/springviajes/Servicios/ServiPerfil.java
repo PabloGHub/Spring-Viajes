@@ -83,4 +83,18 @@ public class ServiPerfil extends Empaquetador
         return _amigos;
     }
 
+
+
+
+
+    public DTOPerfil encuentraUno(DTOPerfilPuro _perfil)
+    {
+        return _repoPerfil.findAll()
+                .stream()
+                .filter(p -> p.getNombre().equals(_perfil.get_nombre()))
+                .filter(p -> p.getPassword().equals(_perfil.get_password()))
+                .findFirst()
+                .map(this::empaquetar)
+                .orElse(null);
+    }
 }
