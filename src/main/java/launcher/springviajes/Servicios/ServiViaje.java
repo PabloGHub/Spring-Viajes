@@ -90,8 +90,13 @@ public class ServiViaje extends Empaquetador
     {
         DTOViajePuro _viaje = this.darmeUno(idViaje);
         DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
+
+        if (_viaje == null || _perfil == null)
+            throw new NullPointerException("Viaje o Perfil no encontrado");
+
         _perfil.get_viajes().add(_viaje);
         _serviPerfil.guardar(_perfil);
+
         return _perfil;
     }
 

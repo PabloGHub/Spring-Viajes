@@ -347,7 +347,7 @@ public class Empaquetador
                     (_NovoActividad.getViaje() != null) ? _NovoActividad.getViaje() : null
         );
         if (_NovoActividad.getViaje() == null) throw new NullPointerException("Viaje no puede ser nulo.");
-        
+
 
         return _NovoActividad;
     }
