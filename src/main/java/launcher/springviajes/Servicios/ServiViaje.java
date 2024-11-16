@@ -85,7 +85,7 @@ public class ServiViaje extends Empaquetador
     }
 
 
-    // Me hacabo de dar cuenta de que podria haber crear un Servicio separado.
+    // Me acabo de dar cuenta de que podría haber creado un Servicio separado.
     public DTOPerfil annadirParticipanteViaje(int idViaje, int idPerfil)
     {
         DTOViajePuro _viaje = this.darmeUno(idViaje);
