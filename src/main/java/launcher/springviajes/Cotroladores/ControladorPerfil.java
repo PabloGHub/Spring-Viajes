@@ -22,9 +22,9 @@ public class ControladorPerfil
     }
 
     @GetMapping("/darmeUno")
-    public DTOPerfil darmeUno(@RequestParam int id)
+    public DTOPerfil darmeUno(@RequestParam int _perfil)
     {
-        return serviPerfil.darmeUno(id);
+        return serviPerfil.darmeUno(_perfil);
     }
 
     @PostMapping("/encuentra")
