@@ -1,5 +1,6 @@
 package launcher.springviajes.DTOs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.*;
@@ -15,4 +16,5 @@ public class DTOActividad
     private Float _precio;
     private DTOFecha _fecha;
     private DTOViajePuro _Viaje;
+    private List<DTOVotoPuro> _Votos = new ArrayList<>();
 }

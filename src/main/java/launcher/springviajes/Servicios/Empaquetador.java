@@ -133,7 +133,6 @@ public class Empaquetador
 
 
     // ------ Actividad ------ //
-    // TOD: añadir votos.
     public DTOActividad empaquetar(Actividad _actividad)
     {
         DTOActividad _NovoActividad = new DTOActividad();
@@ -145,6 +144,9 @@ public class Empaquetador
         _NovoActividad.set_precio(_actividad.getPrecio());
 
         _NovoActividad.set_Viaje(empaquetarPuro(_actividad.getViaje()));
+
+        _repoVoto.findByActividad(_actividad)
+                .forEach(v -> _NovoActividad.get_Votos().add(empaquetarPuro(v)));
 
         return _NovoActividad;
     }

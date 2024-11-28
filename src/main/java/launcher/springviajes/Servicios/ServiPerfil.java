@@ -72,13 +72,15 @@ public class ServiPerfil extends Empaquetador
     {
         List<DTOPerfilPuro> _amigos = new ArrayList<>(darmeUno(id).get_amigos());
 
-        darmeTodo().forEach(p ->
-        {
-            p.get_amigos()
-                    .stream()
-                    .filter(a -> a.get_idPerfil() == id && a.get_idPerfil() != p.get_idPerfil())
-                    .forEach(_amigos::add);
-        });
+        //darmeTodo().forEach(p ->
+        //{
+        //    p.get_amigos()
+        //            .stream()
+        //            .filter(a -> a.get_idPerfil() == id && a.get_idPerfil() != p.get_idPerfil())
+        //            .forEach(_amigos::add);
+        //});
+
+        //darmeTodo().forEach(p -> p.get_amigos().forEach(a -> _amigos.add(a)));
 
         return _amigos;
     }
