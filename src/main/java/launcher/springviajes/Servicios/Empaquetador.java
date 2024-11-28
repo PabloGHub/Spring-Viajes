@@ -133,6 +133,7 @@ public class Empaquetador
 
 
     // ------ Actividad ------ //
+    // TOD: añadir votos.
     public DTOActividad empaquetar(Actividad _actividad)
     {
         DTOActividad _NovoActividad = new DTOActividad();
