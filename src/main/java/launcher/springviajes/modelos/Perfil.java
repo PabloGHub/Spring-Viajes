@@ -27,6 +27,7 @@ public class Perfil
     @Column(name = "password")
     private String password;
 
+    // Este funciona perfecto
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable
     (
