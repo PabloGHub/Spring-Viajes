@@ -37,10 +37,10 @@ public class Perfil
     )
     private Set<Viaje> viajes;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, targetEntity = Perfil.class)
     @JoinTable
     (
-        name = "amigo",
+        name = "amigo", schema = "public", catalog = "viajes",
         joinColumns = @JoinColumn(name = "idusuario"),
         inverseJoinColumns = @JoinColumn(name = "idamigo")
     )

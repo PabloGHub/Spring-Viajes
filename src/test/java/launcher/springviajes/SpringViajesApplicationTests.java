@@ -1,6 +1,8 @@
 package launcher.springviajes;
 
 // import lombok.allArgsConstructor;
+import launcher.springviajes.DTOs.DTOViaje;
+import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
 import org.junit.jupiter.api.Test;
@@ -41,5 +43,18 @@ class SpringViajesApplicationTests
             .toList();
 
         resultado.forEach(System.out::println);
+    }
+
+    @Test
+    void test_CrearViaje_correcto()
+    {
+        //ServiViaje _sv = new ServiViaje();
+
+        DTOViaje _v = new DTOViaje();
+        _v.set_nombre("Viaje a la luna");
+        _v.set_descripcion("Viaje a la luna con todo incluido");
+        _v.set_password("1234");
+
+
     }
 }
