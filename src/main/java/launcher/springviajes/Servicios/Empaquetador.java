@@ -213,7 +213,8 @@ public class Empaquetador
 
 
 
-
+    // TODO: todos los Desempaquetadores comprueben si los campos estan vacios.
+    // TODO: Valor monetario de Actividades no puede ser negativo pero si 0.
 
     // ---------------------------------------------------- Desempaquetadores --- //
     public Viaje desempaquetar(DTOViajePuro _viaje)
@@ -224,7 +225,7 @@ public class Empaquetador
         if (_NovoViaje == null)
             return null;
 
-        // Este forma permite crear nuevo si el id es inexsistente.
+        // Este forma permite crear nuevo si el id es inexistente.
         // Viaje _NovoViaje = new Viaje();
         // _NovoViaje.setIdViaje((_viaje.get_idViaje()!=null) ? _viaje.get_idViaje() : null);
 
@@ -233,19 +234,19 @@ public class Empaquetador
             (_viaje.get_nombre() != null) ? _viaje.get_nombre() :
                     (_NovoViaje.getNombre() != null) ? _NovoViaje.getNombre() : null
         );
-        if (_NovoViaje.getNombre() == null) throw new NullPointerException("Nombre no puede ser nulo.");
+        if (_NovoViaje.getNombre() == null) throw new NullPointerException("Nombre no puede ser nulo");
         _NovoViaje.setDescripcion
         (
                 (_viaje.get_descripcion()) != null ? _viaje.get_descripcion() :
                         (_NovoViaje.getDescripcion() != null) ? _NovoViaje.getDescripcion() : null
         );
-        if (_NovoViaje.getDescripcion() == null) throw new NullPointerException("Descripcion no puede ser nulo.");
+        if (_NovoViaje.getDescripcion() == null) throw new NullPointerException("Descripcion no puede ser nulo");
         _NovoViaje.setPassword
         (
                 (_viaje.get_contraseña() != null) ? _viaje.get_contraseña() :
                         (_NovoViaje.getPassword() != null) ? _NovoViaje.getPassword() : null
         );
-        if (_NovoViaje.getPassword() == null) throw new NullPointerException("Password no puede ser nulo.");
+        if (_NovoViaje.getPassword() == null) throw new NullPointerException("Password no puede ser nulo");
 
         return _NovoViaje;
     }
@@ -268,13 +269,13 @@ public class Empaquetador
             (_perfil.get_nombre() != null) ? _perfil.get_nombre() :
                     (_NovoPerfil.getNombre() != null) ? _NovoPerfil.getNombre() : null
         );
-        if (_NovoPerfil.getNombre() == null) throw new NullPointerException("Nombre no puede ser nulo.");
+        if (_NovoPerfil.getNombre() == null) throw new NullPointerException("Nombre no puede ser nulo");
         _NovoPerfil.setPassword
         (
             (_perfil.get_password() != null) ? _perfil.get_password() :
                     (_NovoPerfil.getPassword() != null) ? _NovoPerfil.getPassword() : null
         );
-        if (_NovoPerfil.getPassword() == null) throw new NullPointerException("Password no puede ser nulo.");
+        if (_NovoPerfil.getPassword() == null) throw new NullPointerException("Password no puede ser nulo");
         _NovoPerfil.setViajes
         (
             (_perfil.get_viajes() != null) ? _perfil.get_viajes()
@@ -283,7 +284,7 @@ public class Empaquetador
                     .collect(Collectors.toSet()) :
                     (_NovoPerfil.getViajes() != null) ? _NovoPerfil.getViajes() : null
         );
-        if (_NovoPerfil.getViajes() == null) throw new NullPointerException("Viajes no puede ser nulo.");
+        if (_NovoPerfil.getViajes() == null) throw new NullPointerException("Viajes no puede ser nulo");
         _NovoPerfil.setAmigos
         (
             (_perfil.get_amigos() != null) ? _perfil.get_amigos()
@@ -292,7 +293,7 @@ public class Empaquetador
                     .collect(Collectors.toSet()) :
                     (_NovoPerfil.getAmigos() != null) ? _NovoPerfil.getAmigos() : null
         );
-        if (_NovoPerfil.getAmigos() == null) throw new NullPointerException("Amigos no puede ser nulo.");
+        if (_NovoPerfil.getAmigos() == null) throw new NullPointerException("Amigos no puede ser nulo");
 
         return _NovoPerfil;
     }
@@ -307,7 +308,7 @@ public class Empaquetador
 
 
 
-    // Son las 9, tengo mucho sueño y no se si esto esta bien.
+    // Son las 9, tengo mucho sueño y no sé si esto está bien.
     public Actividad desempaquetar(DTOActividad _actividad)
     {
         Actividad _NovoActividad = (_actividad.get_idActividad() == null) ? new Actividad() :
@@ -321,35 +322,35 @@ public class Empaquetador
             (_actividad.get_titulo() != null) ? _actividad.get_titulo() :
                     (_NovoActividad.getTitulo() != null) ? _NovoActividad.getTitulo() : null
         );
-        if (_NovoActividad.getTitulo() == null) throw new NullPointerException("Titulo no puede ser nulo.");
+        if (_NovoActividad.getTitulo() == null) throw new NullPointerException("Titulo no puede ser nulo");
 
         _NovoActividad.setDescripcion
         (
             (_actividad.get_descripcion() != null) ? _actividad.get_descripcion() :
                     (_NovoActividad.getDescripcion() != null) ? _NovoActividad.getDescripcion() : null
         );
-        if (_NovoActividad.getDescripcion() == null) throw new NullPointerException("Descripcion no puede ser nulo.");
+        if (_NovoActividad.getDescripcion() == null) throw new NullPointerException("Descripcion no puede ser nulo");
 
         _NovoActividad.setFecha
         (
             (_actividad.get_fecha() != null) ? desempaquetar(_actividad.get_fecha()) :
                     (_NovoActividad.getFecha() != null) ? _NovoActividad.getFecha() : null
         );
-        if (_NovoActividad.getFecha() == null) throw new NullPointerException("Fecha no puede ser nulo.");
+        if (_NovoActividad.getFecha() == null) throw new NullPointerException("Fecha no puede ser nulo");
 
         _NovoActividad.setPrecio
         (
             (_actividad.get_precio() != null) ? _actividad.get_precio() :
                     (_NovoActividad.getPrecio() != null) ? _NovoActividad.getPrecio() : null
         );
-        if (_NovoActividad.getPrecio() == null) throw new NullPointerException("Precio no puede ser nulo.");
+        if (_NovoActividad.getPrecio() == null) throw new NullPointerException("Precio no puede ser nulo");
 
         _NovoActividad.setViaje
         (
             (_actividad.get_Viaje() != null) ? desempaquetar(_actividad.get_Viaje()) :
                     (_NovoActividad.getViaje() != null) ? _NovoActividad.getViaje() : null
         );
-        if (_NovoActividad.getViaje() == null) throw new NullPointerException("Viaje no puede ser nulo.");
+        if (_NovoActividad.getViaje() == null) throw new NullPointerException("Viaje no puede ser nulo");
 
 
         return _NovoActividad;
@@ -367,7 +368,7 @@ public class Empaquetador
                         _repoVoto.findById(_voto.get_idVoto()).orElse(null);
 
         if (_novoVoto == null)
-            throw new NullPointerException("Voto no puede ser nulo. (Nunca deberia salta esto)");
+            throw new NullPointerException("Voto no puede ser nulo(Nunca deberia salta esto)");
 
         _novoVoto.setPerfil
         (
@@ -376,7 +377,7 @@ public class Empaquetador
                     _repoPerfil.findById(_voto.get_perfil().get_idPerfil()).orElse(null) : null
                         : (_novoVoto.getPerfil() != null) ? _novoVoto.getPerfil() : null
         );
-        if (_novoVoto.getPerfil() == null) throw new NullPointerException("Perfil no puede ser nulo.");
+        if (_novoVoto.getPerfil() == null) throw new NullPointerException("Perfil no puede ser nulo");
         _novoVoto.setActividad
         (
             (_voto.get_actividad() != null) ?
@@ -384,13 +385,13 @@ public class Empaquetador
                     _repoActividad.findById(_voto.get_actividad().get_idActividad()).orElse(null) : null
                         : (_novoVoto.getActividad() != null) ? _novoVoto.getActividad() : null
         );
-        if (_novoVoto.getActividad() == null) throw new NullPointerException("Actividad no puede ser nulo.");
+        if (_novoVoto.getActividad() == null) throw new NullPointerException("Actividad no puede ser nulo");
         _novoVoto.setVoto
         (
             (_voto.get_voto() != null) ? _voto.get_voto() :
                                 (_novoVoto.getVoto() != null) ? _novoVoto.getVoto() : null
         );
-        if (_novoVoto.getVoto() == null) throw new NullPointerException("Voto no puede ser nulo.");
+        if (_novoVoto.getVoto() == null) throw new NullPointerException("Voto no puede ser nulo");
 
 
         return _novoVoto;

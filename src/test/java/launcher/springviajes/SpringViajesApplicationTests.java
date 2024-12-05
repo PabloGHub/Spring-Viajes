@@ -2,20 +2,25 @@ package launcher.springviajes;
 
 // import lombok.allArgsConstructor;
 import launcher.springviajes.DTOs.DTOViaje;
+import launcher.springviajes.DTOs.DTOViajePuro;
 import launcher.springviajes.Servicios.ServiViaje;
 import launcher.springviajes.modelos.Viaje;
 import launcher.springviajes.repositorios.RepoViaje;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 class SpringViajesApplicationTests
 {
     @Autowired
-    private RepoViaje _rp;
+    private ServiViaje _sv;
 
     @Test
     void contextLoads()
@@ -46,15 +51,55 @@ class SpringViajesApplicationTests
     }
 
     @Test
+    @Tag("Plantilla")
+    @Disabled // Retirar antes de volar.
+    void test_plantilla()
+    {
+        // --- Preparacion --- //
+
+        // --- Ejecucion --- //
+
+        // --- Resolucion --- //
+    }
+
+
+    @Test
+    @Tag("viaje")
     void test_CrearViaje_correcto()
     {
-        //ServiViaje _sv = new ServiViaje();
+        // --- Preparacion --- //
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre       ("Viaje a la luna");
+        _v.set_descripcion  ("Viaje a la luna con todo incluido");
+        _v.set_contraseña   ("1234");
 
-        DTOViaje _v = new DTOViaje();
-        _v.set_nombre("Viaje a la luna");
-        _v.set_descripcion("Viaje a la luna con todo incluido");
-        _v.set_password("1234");
+
+        // --- Ejecucion --- //
+        DTOViajePuro _v2 = _sv.guardar(_v);
 
 
+        // --- Resolucion --- //
+        assertNotNull(_v2);
+        assertEquals(_v.get_nombre(), _v2.get_nombre());
+    }
+
+    @Test
+    @Tag("viaje")
+    void test_CrearViaje_fallido()
+    {
+        // --- Preparacion --- //
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre(null);
+        _v.set_descripcion(null);
+        _v.set_contraseña("");
+
+
+        // --- Ejecucion --- //
+        // --- Resolucion --- //
+        Exception _ex = assertThrows(Exception.class, () -> _sv.guardar(_v));
+
+        assertEquals("Nombre no puede ser nulo",        _ex.getMessage());
+        assertEquals("Descripcion no puede ser nulo",   _ex.getMessage());
+        assertEquals("Password no puede ser nulo",      _ex.getMessage());
     }
 }
