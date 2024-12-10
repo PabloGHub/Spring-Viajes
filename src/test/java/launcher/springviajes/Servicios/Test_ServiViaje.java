@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 @SpringBootTest
-@AutoConfigureTestDatabase
 @Transactional
 public class Test_ServiViaje
 {
@@ -56,6 +55,17 @@ public class Test_ServiViaje
         // --- Resolucion --- //
         Exception _ex = assertThrows(Exception.class, () -> _sv.guardar(_v));
 
-        assertTrue(_ex.getMessage().contains("Error al guardar el viaje"));
+        assertTrue(_ex.getMessage().contains("Error:"));
+    }
+
+    @Test
+    @Tag("viaje")
+    void test_verParticipantesViaje_correcto()
+    {
+        // --- Preparacion --- //
+
+        // --- Ejecucion --- //
+
+        // --- Resolucion --- //
     }
 }

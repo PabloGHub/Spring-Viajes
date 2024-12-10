@@ -409,6 +409,11 @@ public class Empaquetador
 
         return _novoVoto;
     }
+
+
+
+
+    // ---------------------------------------------------- Validaciones/Comprobaciones --- //
 }
 
 
