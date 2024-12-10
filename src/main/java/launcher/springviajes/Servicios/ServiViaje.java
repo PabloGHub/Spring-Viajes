@@ -126,7 +126,7 @@ public class ServiViaje extends Empaquetador
                 .toList();
     }
 
-    public DTOActividad proponerActividad(DTOActividad _actividad)
+    public DTOActividad proponerActividad(DTOActividad _actividad, int _perfil)
     {
         DTOViajePuro _viaje = this.darmeUno(_actividad.get_Viaje().get_idViaje());
         if (_viaje == null) return null;

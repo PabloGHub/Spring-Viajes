@@ -63,9 +63,9 @@ public class ControladorViaje
 
 
     @PostMapping("/actividad/nueva")
-    public DTOActividad proponerActividad(@RequestBody DTOActividad _act)
+    public DTOActividad proponerActividad(@RequestBody DTOActividad _act, @RequestParam int _perfil)
     {
-        return serviViaje.proponerActividad(_act);
+        return serviViaje.proponerActividad(_act, _perfil);
     }
 
 

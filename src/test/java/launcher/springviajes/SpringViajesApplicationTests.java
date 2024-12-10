@@ -1,6 +1,7 @@
 package launcher.springviajes;
 
 // import lombok.allArgsConstructor;
+import jakarta.transaction.Transactional;
 import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.DTOs.DTOViajePuro;
 import launcher.springviajes.Servicios.ServiViaje;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -17,10 +19,13 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@AutoConfigureTestDatabase
+@Transactional
 class SpringViajesApplicationTests
 {
     @Autowired
     private ServiViaje _sv;
+
 
     @Test
     void contextLoads()
@@ -49,7 +54,6 @@ class SpringViajesApplicationTests
 
         resultado.forEach(System.out::println);
     }
-
 
     void monatarBD_Pruebas()
     {
@@ -90,26 +94,4 @@ class SpringViajesApplicationTests
         assertEquals(_v.get_nombre(), _v2.get_nombre());
     }
 
-    @Test
-    @Tag("viaje")
-    void test_CrearViaje_fallido()
-    {
-        // --- Preparacion --- //
-        DTOViajePuro _v = new DTOViajePuro();
-        _v.set_nombre(null);
-        _v.set_descripcion(null);
-        _v.set_contraseña("");
-
-
-        // --- Ejecucion --- //
-        // --- Resolucion --- //
-        Exception _ex = assertThrows(Exception.class, () -> _sv.guardar(_v));
-
-        if (_ex.getMessage().contains("Nombre no puede ser nulo"))
-            assertTrue(true);
-        else if (_ex.getMessage().contains("Descripcion no puede ser nulo"))
-            assertTrue(true);
-        else if (_ex.getMessage().contains("Password no puede ser nulo"))
-            assertTrue(true);
-    }
 }

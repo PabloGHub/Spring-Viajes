@@ -221,7 +221,7 @@ public class Empaquetador
             case Integer i -> i >= 0;
             case Double v -> v >= 0;
             case Float v -> v >= 0;
-            case String s -> !s.isEmpty();
+            case String s -> !s.isEmpty() && !s.contains("<") && !s.contains(">");
             case null, default -> _dato != null;
         };
     }
