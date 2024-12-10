@@ -102,6 +102,9 @@ public class ServiViaje extends Empaquetador
 
     public List<DTOPerfilPuro> verParticipantesViaje(int idViaje)
     {
+        if (!existeViaje(idViaje))
+            throw new NullPointerException("Viaje no encontrado");
+
         return _serviPerfil.darmeTodo().stream()
                 .filter(p -> p.get_viajes().stream().anyMatch(v -> v.get_idViaje() == idViaje))
                 .map(this::empaquetar)

@@ -414,6 +414,28 @@ public class Empaquetador
 
 
     // ---------------------------------------------------- Validaciones/Comprobaciones --- //
+    // Comprobar si existe el perfil.
+    Boolean existeUsuario(DTOPerfil _perfil)
+    {
+        return _repoPerfil.findById(_perfil.get_idPerfil()).isPresent();
+    }
+
+    // Comprobar si existe el viaje.
+    Boolean existeViaje(int _viaje)
+    {
+        if (_viaje < 0) return false;
+        return _repoViaje.findById(_viaje).isPresent();
+    }
+
+    // Comprobar si existe el perfil en el viaje.
+    Boolean existeUsuViaje(DTOViajePuro _viaje, DTOPerfil _perfil)
+    {
+        //return _serviPerfil.darmeTodo().stream()
+        //        .filter(p -> p.get_viajes().stream().anyMatch(v -> v.get_idViaje() == idViaje))
+        //        .map(this::empaquetar)
+        //        .toList()  _repoViaje.findById(_viaje.get_idViaje()).get().getParticipantes().contains(_repoPerfil.findById(_perfil.get_idPerfil()).get());
+        return null;
+    }
 }
 
 

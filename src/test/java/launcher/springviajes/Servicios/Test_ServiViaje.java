@@ -1,12 +1,15 @@
 package launcher.springviajes.Servicios;
 
 import jakarta.transaction.Transactional;
+import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViajePuro;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,9 +61,25 @@ public class Test_ServiViaje
         assertTrue(_ex.getMessage().contains("Error:"));
     }
 
+
+
     @Test
     @Tag("viaje")
     void test_verParticipantesViaje_correcto()
+    {
+        // --- Preparacion --- //
+        int _idViaje = 1;
+
+        // --- Ejecucion --- //
+        List<DTOPerfilPuro> _participantes = _sv.verParticipantesViaje(_idViaje);
+
+        // --- Resolucion --- //
+        assertNotNull(_participantes);
+    }
+
+    @Test
+    @Tag("viaje")
+    void test_verParticipantesViaje_fallido()
     {
         // --- Preparacion --- //
 
