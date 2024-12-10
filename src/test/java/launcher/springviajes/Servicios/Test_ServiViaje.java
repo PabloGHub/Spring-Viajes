@@ -69,7 +69,7 @@ public class Test_ServiViaje
     // --- annadirParticipanteViaje
     @Test
     @Tag("viaje")
-    void test_annadirParticipante_correcto()
+    void test_annadirParticipante_correcto() // Mayia Potyia
     {
         // --- Preparacion --- //
         DTOViajePuro _v = new DTOViajePuro();
@@ -110,6 +110,7 @@ public class Test_ServiViaje
 
 
         // --- Ejecucion --- //
+        _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil());
         Exception _ex = assertThrows(Exception.class, () -> _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil()));
 
         // --- Resolucion --- //
@@ -152,6 +153,20 @@ public class Test_ServiViaje
     @Test
     @Tag("viaje")
     void test_verParticipantesViaje_fallido()
+    {
+        // --- Preparacion --- //
+        // --- Ejecucion --- //
+        Exception _ex = assertThrows(Exception.class, () -> _sv.verParticipantesViaje(0));
+
+        // --- Resolucion --- //
+        assertTrue(_ex.getMessage().contains("Error:"));
+    }
+
+
+    // --- eliminarParticipanteViaje
+    @Test
+    @Tag("viaje")
+    void test_eliminarParticipanteViaje_correcto()
     {
         // --- Preparacion --- //
         // --- Ejecucion --- //

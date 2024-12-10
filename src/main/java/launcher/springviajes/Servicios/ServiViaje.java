@@ -122,6 +122,15 @@ public class ServiViaje extends Empaquetador
 
     public DTOViaje eliminarParticipanteViaje(int idViaje, int idPerfil)
     {
+        if (!existeUsuario(idPerfil))
+            throw new NullPointerException("Error: Usuario no encontrado");
+
+        if (!existeViaje(idViaje))
+            throw new NullPointerException("Error: Viaje no encontrado");
+
+        if (noExisteViaje(idViaje, idPerfil))
+            throw new NullPointerException("Error: Usuario no existe en el viaje");
+
         DTOViajePuro _viaje = this.darmeUno(idViaje);
         DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
         _perfil.get_viajes().remove(_viaje);
@@ -179,7 +188,7 @@ public class ServiViaje extends Empaquetador
     // Comprobar si el usuario existe en el viaje.
     Boolean noExisteViaje(int idViaje, int idPerfil)
     {
-        return _serviPerfil.darmeUno(idPerfil).get_viajes().stream().noneMatch(v -> v.get_idViaje() == idViaje);
+        return !_serviPerfil.darmeUno(idPerfil).get_viajes().stream().noneMatch(v -> v.get_idViaje() == idViaje);
     }
 
 

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -427,13 +428,18 @@ public class Empaquetador
     }
 
     // Comprobar si existe el perfil en el viaje.
-    Boolean existeUsuViaje(DTOViajePuro _viaje, DTOPerfil _perfil)
+    // esto es lo mismo que (noExisteViaje)
+    Boolean existeUsuViaje(int _idViaje, int _idPerfil)
     {
-        //return _serviPerfil.darmeTodo().stream()
-        //        .filter(p -> p.get_viajes().stream().anyMatch(v -> v.get_idViaje() == idViaje))
-        //        .map(this::empaquetar)
-        //        .toList()  _repoViaje.findById(_viaje.get_idViaje()).get().getParticipantes().contains(_repoPerfil.findById(_perfil.get_idPerfil()).get());
-        return null;
+        Perfil _perfil = _repoPerfil.findById(_idPerfil).orElse(null);
+        if (_perfil == null)
+            return false;
+
+        Viaje _viaje = _repoViaje.findById(_idViaje).orElse(null);
+        if (_viaje == null)
+            return false;
+
+        return _perfil.getViajes().contains(_viaje);
     }
 }
 
