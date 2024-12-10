@@ -3,6 +3,7 @@ package launcher.springviajes.Servicios;
 import jakarta.transaction.Transactional;
 import launcher.springviajes.DTOs.DTOPerfil;
 import launcher.springviajes.DTOs.DTOPerfilPuro;
+import launcher.springviajes.DTOs.DTOViaje;
 import launcher.springviajes.DTOs.DTOViajePuro;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -168,11 +169,29 @@ public class Test_ServiViaje
     @Tag("viaje")
     void test_eliminarParticipanteViaje_correcto()
     {
+        System.out.println("Preparacion");
         // --- Preparacion --- //
-        // --- Ejecucion --- //
-        Exception _ex = assertThrows(Exception.class, () -> _sv.verParticipantesViaje(0));
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre       ("Viaje a la luna");
+        _v.set_descripcion  ("Viaje a la luna con todo incluido");
+        _v.set_contraseña   ("1234");
+        DTOViajePuro _v2 = _sv.guardar(_v);
 
+        DTOPerfil _p1 = new DTOPerfil();
+        _p1.set_nombre("Pedro");
+        _p1.set_password("1234");
+        DTOPerfil _p1_2 = _sp.guardar(_p1);
+
+
+        System.out.println("Ejecucion");
+        // --- Ejecucion --- //
+        DTOPerfil _p2 = _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil());
+
+        DTOViaje _v3 = _sv.eliminarParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil());
+
+
+        System.out.println("Resolucion");
         // --- Resolucion --- //
-        assertTrue(_ex.getMessage().contains("Error:"));
+        assertNotNull(_v3);
     }
 }
