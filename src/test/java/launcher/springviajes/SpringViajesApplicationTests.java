@@ -50,6 +50,13 @@ class SpringViajesApplicationTests
         resultado.forEach(System.out::println);
     }
 
+
+    void monatarBD_Pruebas()
+    {
+
+    }
+
+
     @Test
     @Tag("Plantilla")
     @Disabled // Retirar antes de volar.
