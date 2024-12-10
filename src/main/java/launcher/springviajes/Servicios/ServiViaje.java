@@ -128,7 +128,7 @@ public class ServiViaje extends Empaquetador
         if (!existeViaje(idViaje))
             throw new NullPointerException("Error: Viaje no encontrado");
 
-        if (existeUsuViaje(idViaje, idPerfil))
+        if (!existeUsuViaje(idViaje, idPerfil))
             throw new NullPointerException("Error: Usuario no existe en el viaje");
 
         DTOViajePuro _viaje = this.darmeUno(idViaje);
@@ -149,6 +149,12 @@ public class ServiViaje extends Empaquetador
 
     public DTOActividad proponerActividad(DTOActividad _actividad, int _perfil)
     {
+        if (!existeUsuario(_perfil))
+            throw new NullPointerException("Error: Usuario no encontrado");
+
+        if (!existeViaje(_actividad.get_Viaje().get_idViaje()))
+            throw new NullPointerException("Error: Viaje no encontrado");
+
         DTOViajePuro _viaje = this.darmeUno(_actividad.get_Viaje().get_idViaje());
         if (_viaje == null) return null;
 
@@ -157,9 +163,13 @@ public class ServiViaje extends Empaquetador
     }
 
 
-    public List<DTOViajePuro> listarViaje(int idUsuario)
+    public List<DTOViajePuro> listarViaje(Integer idUsuario)
     {
-        return _serviPerfil.darmeUno(idUsuario).get_viajes();
+        if (existeUsuario(idUsuario))
+            return _serviPerfil.darmeUno(idUsuario).get_viajes();
+        else
+            throw new NullPointerException("Error: Usuario no encontrado");
+
     }
 
 

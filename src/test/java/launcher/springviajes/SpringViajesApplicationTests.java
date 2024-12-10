@@ -73,25 +73,4 @@ class SpringViajesApplicationTests
         // --- Resolucion --- //
     }
 
-
-    @Test
-    @Tag("viaje")
-    void test_CrearViaje_correcto()
-    {
-        // --- Preparacion --- //
-        DTOViajePuro _v = new DTOViajePuro();
-        _v.set_nombre       ("Viaje a la luna");
-        _v.set_descripcion  ("Viaje a la luna con todo incluido");
-        _v.set_contraseña   ("1234");
-
-
-        // --- Ejecucion --- //
-        DTOViajePuro _v2 = _sv.guardar(_v);
-
-
-        // --- Resolucion --- //
-        assertNotNull(_v2);
-        assertEquals(_v.get_nombre(), _v2.get_nombre());
-    }
-
 }

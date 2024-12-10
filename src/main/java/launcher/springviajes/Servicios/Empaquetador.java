@@ -416,20 +416,24 @@ public class Empaquetador
 
     // ---------------------------------------------------- Validaciones/Comprobaciones --- //
     // Comprobar si existe el perfil.
-    Boolean existeUsuario(int _perfil)
+    Boolean existeUsuario(Integer _perfil)
     {
+        if (_perfil == null)
+            return false;
         return _repoPerfil.findById(_perfil).isPresent();
     }
 
     // Comprobar si existe el viaje.
-    Boolean existeViaje(int _viaje)
+    Boolean existeViaje(Integer _viaje)
     {
+        if (_viaje == null)
+            return false;
         return _repoViaje.findById(_viaje).isPresent();
     }
 
     // Comprobar si existe el perfil en el viaje.
     // esto es lo mismo que (noExisteViaje)
-    Boolean existeUsuViaje(int _idViaje, int _idPerfil)
+    Boolean existeUsuViaje(Integer _idViaje, Integer _idPerfil)
     {
         Perfil _perfil = _repoPerfil.findById(_idPerfil).orElse(null);
         if (_perfil == null)
