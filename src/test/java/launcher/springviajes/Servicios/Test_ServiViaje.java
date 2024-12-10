@@ -1,6 +1,7 @@
 package launcher.springviajes.Servicios;
 
 import jakarta.transaction.Transactional;
+import launcher.springviajes.DTOs.DTOPerfil;
 import launcher.springviajes.DTOs.DTOPerfilPuro;
 import launcher.springviajes.DTOs.DTOViajePuro;
 import org.junit.jupiter.api.Tag;
@@ -22,7 +23,10 @@ public class Test_ServiViaje
 {
     @Autowired
     private ServiViaje _sv;
+    @Autowired
+    private ServiPerfil _sp;
 
+    // --- CrearViaje
     @Test
     @Tag("viaje")
     void test_CrearViaje_correcto()
@@ -62,16 +66,84 @@ public class Test_ServiViaje
     }
 
 
+    // --- annadirParticipanteViaje
+    @Test
+    @Tag("viaje")
+    void test_annadirParticipante_correcto()
+    {
+        // --- Preparacion --- //
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre       ("Viaje a la luna");
+        _v.set_descripcion  ("Viaje a la luna con todo incluido");
+        _v.set_contraseña   ("1234");
+        DTOViajePuro _v2 = _sv.guardar(_v);
 
+        DTOPerfil _p1 = new DTOPerfil();
+        _p1.set_nombre("Pedro");
+        _p1.set_password("1234");
+        DTOPerfil _p1_2 = _sp.guardar(_p1);
+
+
+        // --- Ejecucion --- //
+        DTOPerfil _p2 = _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil());
+
+
+        // --- Resolucion --- //
+        assertNotNull(_p2);
+    }
+
+    @Test
+    @Tag("viaje")
+    void test_annadirParticipante_fallido()
+    {
+        // --- Preparacion --- //
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre       ("Viaje a la luna");
+        _v.set_descripcion  ("Viaje a la luna con todo incluido");
+        _v.set_contraseña   ("1234");
+        DTOViajePuro _v2 = _sv.guardar(_v);
+
+        DTOPerfil _p1 = new DTOPerfil();
+        _p1.set_nombre("Pedro");
+        _p1.set_password("1234");
+        DTOPerfil _p1_2 = _sp.guardar(_p1);
+
+
+        // --- Ejecucion --- //
+        Exception _ex = assertThrows(Exception.class, () -> _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil()));
+
+        // --- Resolucion --- //
+        assertNotNull(_ex);
+
+    }
+
+
+    // --- verParticipantesViaje
     @Test
     @Tag("viaje")
     void test_verParticipantesViaje_correcto()
     {
         // --- Preparacion --- //
-        int _idViaje = 1;
+        DTOViajePuro _v = new DTOViajePuro();
+        _v.set_nombre       ("Viaje a la luna");
+        _v.set_descripcion  ("Viaje a la luna con todo incluido");
+        _v.set_contraseña   ("1234");
+        DTOViajePuro _v2 = _sv.guardar(_v);
+
+        DTOPerfil _p1 = new DTOPerfil();
+        _p1.set_nombre("Pedro");
+        _p1.set_password("1234");
+        DTOPerfil _p1_2 = _sp.guardar(_p1);
+        _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p1_2.get_idPerfil());
+
+        DTOPerfil _p2 = new DTOPerfil();
+        _p2.set_nombre("Juan");
+        _p2.set_password("1234");
+        DTOPerfil _p2_2 = _sp.guardar(_p2);
+        _sv.annadirParticipanteViaje(_v2.get_idViaje(), _p2_2.get_idPerfil());
 
         // --- Ejecucion --- //
-        List<DTOPerfilPuro> _participantes = _sv.verParticipantesViaje(_idViaje);
+        List<DTOPerfilPuro> _participantes = _sv.verParticipantesViaje(_v2.get_idViaje());
 
         // --- Resolucion --- //
         assertNotNull(_participantes);
@@ -82,9 +154,10 @@ public class Test_ServiViaje
     void test_verParticipantesViaje_fallido()
     {
         // --- Preparacion --- //
-
         // --- Ejecucion --- //
+        Exception _ex = assertThrows(Exception.class, () -> _sv.verParticipantesViaje(0));
 
         // --- Resolucion --- //
+        assertTrue(_ex.getMessage().contains("Error:"));
     }
 }

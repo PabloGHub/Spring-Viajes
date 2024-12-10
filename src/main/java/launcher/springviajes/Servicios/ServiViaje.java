@@ -88,6 +88,15 @@ public class ServiViaje extends Empaquetador
     // Me acabo de dar cuenta de que podría haber creado un Servicio separado.
     public DTOPerfil annadirParticipanteViaje(int idViaje, int idPerfil)
     {
+        if (!existeUsuario(idPerfil))
+            throw new NullPointerException("Error: Usuario no encontrado");
+
+        if (!existeViaje(idViaje))
+            throw new NullPointerException("Error: Viaje no encontrado");
+
+        if (noExisteViaje(idViaje, idPerfil))
+            throw new NullPointerException("Error: Usuario ya existe en el viaje");
+
         DTOViajePuro _viaje = this.darmeUno(idViaje);
         DTOPerfil _perfil = _serviPerfil.darmeUno(idPerfil);
 
@@ -100,10 +109,10 @@ public class ServiViaje extends Empaquetador
         return _perfil;
     }
 
-    public List<DTOPerfilPuro> verParticipantesViaje(int idViaje)
+    public List<DTOPerfilPuro> verParticipantesViaje(int idViaje) throws NullPointerException
     {
         if (!existeViaje(idViaje))
-            throw new NullPointerException("Viaje no encontrado");
+            throw new NullPointerException("Error: Viaje no encontrado");
 
         return _serviPerfil.darmeTodo().stream()
                 .filter(p -> p.get_viajes().stream().anyMatch(v -> v.get_idViaje() == idViaje))
@@ -167,8 +176,11 @@ public class ServiViaje extends Empaquetador
         return empaquetar(_serviVoto.guardar(_nuevoVoto));
     }
 
-
-
+    // Comprobar si el usuario existe en el viaje.
+    Boolean noExisteViaje(int idViaje, int idPerfil)
+    {
+        return _serviPerfil.darmeUno(idPerfil).get_viajes().stream().noneMatch(v -> v.get_idViaje() == idViaje);
+    }
 
 
 }

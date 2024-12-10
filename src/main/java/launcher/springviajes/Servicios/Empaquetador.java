@@ -415,15 +415,14 @@ public class Empaquetador
 
     // ---------------------------------------------------- Validaciones/Comprobaciones --- //
     // Comprobar si existe el perfil.
-    Boolean existeUsuario(DTOPerfil _perfil)
+    Boolean existeUsuario(int _perfil)
     {
-        return _repoPerfil.findById(_perfil.get_idPerfil()).isPresent();
+        return _repoPerfil.findById(_perfil).isPresent();
     }
 
     // Comprobar si existe el viaje.
     Boolean existeViaje(int _viaje)
     {
-        if (_viaje < 0) return false;
         return _repoViaje.findById(_viaje).isPresent();
     }
 
